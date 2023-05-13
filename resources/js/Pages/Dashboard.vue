@@ -46,7 +46,7 @@ defineProps({
                 <li><a href=""><i class="fa-solid fa-house"></i></a></li>
                 <li><a href=""><i class="fa-solid fa-user"></i></a></li>
                 <li><a href=""><i class="fa-solid fa-bookmark"></i></a></li>
-                <li><a href=""><i class="fa-solid fa-gear"></i></a></li>
+                <li><a href="/activity/create"><i class="fa-solid fa-gear"></i></a></li>
             </ul>
         </nav>
     </foot>

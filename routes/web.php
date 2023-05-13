@@ -35,4 +35,8 @@ Route::middleware([
 });
 
 
-Route::get('/testi', [ActivityController::class, 'index']);
+Route::get('activity/show/{id}', [ActivityController::class, 'show'])->name('activity.show');
+
+Route::get('activity/create', [ActivityController::class, 'create'])->name('activity.create');
+
+Route::post('activity/store', [ActivityController::class, 'store'])->name('activity.store');

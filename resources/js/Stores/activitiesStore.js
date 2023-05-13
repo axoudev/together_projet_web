@@ -6,8 +6,14 @@ export const useActivitiesStore = defineStore({
   id: 'activities',
   state: () => ({
     activities: [],
+    currentActivity: null,
   }),
   getters: {
+    getActivityById: (state) => (id) => {
+      // Récupération d'une activité par son id
+      console.log(JSON.parse(JSON.stringify(state.activities)));
+      return JSON.parse(JSON.stringify(state.activities)).find((activity) => activity.id == id);
+    },
     getActivitiesSortedByDistance: (state) => {
       // Tri des activités par distance
        
@@ -47,31 +53,3 @@ export const useActivitiesStore = defineStore({
     },
   },
 });
-
-function calculateDistance(lat1, lon1) {
-    const earthRadius = 6371; // Rayon de la Terre en kilomètres
-  
-    // Convertir les degrés en radians
-    const dLat = toRadians(lat2 - lat1);
-    const dLon = toRadians(lon2 - lon1);
-  
-    // Convertir les latitudes en radians
-    const lat1Rad = toRadians(lat1);
-    const lat2Rad = toRadians(lat2);
-  
-    // Calcul des différences de latitude et de longitude en radians
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1Rad) * Math.cos(lat2Rad);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  
-    // Calcul de la distance en kilomètres
-    const distance = earthRadius * c;
-  
-    return distance;
-  }
-  
-  // Fonction utilitaire pour convertir des degrés en radians
-  function toRadians(degrees) {
-    return degrees * (Math.PI / 180);
-  }

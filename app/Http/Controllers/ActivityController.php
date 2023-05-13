@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use activity model
 use App\Models\Activity;
+use App\Models\Category;
 use Inertia\Inertia;
+
+use GuzzleHttp\Client;
 
 class ActivityController extends Controller
 {
@@ -17,6 +20,60 @@ class ActivityController extends Controller
         return Inertia::render('Dashboard', [
             'activities' => $activities,
         ]);
+    }
+
+    public function show($id){
+        $data = [
+            'activityId' => $id,
+        ];
+    
+        return Inertia::render('Details', $data);
+    }
+
+    public function create()
+    {
+        $categories = Category::all();
+
+        $data = [
+            'categories' => $categories
+        ];
+        return Inertia::render('AddActivityForm', $data);
+    }
+
+    public function store(Request $request){
+
+        $client = new Client();
+
+        $response = $client->get('https://geocode.maps.co/search?q={'.$request->street.' '.$request->house_number.' '.$request->zip_code.' '.$request->city.' '.$request->country.'}');
+
+        $data = json_decode($response->getBody()->getContents());
+
+        $activity = new Activity;
+
+        $activity->title = $request->title;
+        $activity->category_id = $request->category_id;
+        $activity->description = $request->description;
+        $activity->user_id = 1;
+        $activity->street = $request->street;
+        $activity->house_number = $request->house_number;
+        $activity->zip_code = $request->zip_code;
+        $activity->city = $request->city;
+        $activity->country = $request->country;
+        $activity->date = $request->date;
+        $activity->image_path = $request->image;
+        $activity->image = $request->image;
+        $activity->duration = $request->duration;
+        $activity->nb_attendees = $request->nb_attendees;
+        $activity->country = $request->country;
+        $activity->lat = $data[0]->lat;
+        $activity->lon = $data[0]->lon;
+
+        // Définir les autres colonnes et valeurs ici
+
+        // Sauvegarder les données dans la base de données
+        $activity->save();
+        
+        dd($data);
     }
 
     public function activitiesWithDistances(Request $request)
