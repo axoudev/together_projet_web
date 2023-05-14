@@ -24,8 +24,11 @@ class ActivityController extends Controller
     }
 
     public function show($id){
+        $activity = Activity::find($id);
+        $img = Storage::url($activity->image);
         $data = [
             'activityId' => $id,
+            'image' => $img,
         ];
     
         return Inertia::render('Details', $data);
@@ -43,9 +46,8 @@ class ActivityController extends Controller
 
     public function store(Request $request){
 
-        Storage::disk('public')->put('activities', $request->file('image'));
+        $img = Storage::disk('public')->put('activities', $request->file('image'));
 
-        die();
         $user = Auth::id();
         $client = new Client();
 
@@ -66,16 +68,13 @@ class ActivityController extends Controller
         $activity->country = $request->country;
         $activity->date = $request->date;
         $activity->image_path = $request->image;
-        $activity->image = $request->image;
+        $activity->image = $img;
         $activity->duration = $request->duration;
         $activity->nb_attendees = $request->nb_attendees;
         $activity->country = $request->country;
         $activity->lat = $data[0]->lat;
         $activity->lon = $data[0]->lon;
 
-        // Définir les autres colonnes et valeurs ici
-
-        // Sauvegarder les données dans la base de données
         $activity->save();
     }
 
@@ -88,6 +87,7 @@ class ActivityController extends Controller
 
         foreach ($activities as $activity) {
             $activity->distance = $this->distance($userLat, $userLon, floatval($activity->lat), floatval($activity->lon));
+            $activity->image_url = Storage::url($activity->image);
         }
         
         return response()->json($activities);

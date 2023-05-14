@@ -5,8 +5,8 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-import { useLocationStore } from './Stores/locationStore';
-import { createPinia } from 'pinia';
+import { createPinia, PiniaVuePlugin } from 'pinia';
+import router from './Router/Router'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -17,6 +17,8 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(createPinia())
+            // .use(PiniaVuePlugin)
+            .use(router)
             .use(ZiggyVue, Ziggy)
             .mount(el);
     },

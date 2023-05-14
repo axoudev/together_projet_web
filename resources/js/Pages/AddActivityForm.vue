@@ -1,9 +1,9 @@
 <script setup>
 import { router } from '@inertiajs/vue3'
 import { reactive } from 'vue'
+import { useForm } from '@inertiajs/vue3'
 
-
-const data = reactive({
+const data = useForm({
     title: null,
     description: null,
     street: null,
@@ -19,11 +19,31 @@ const data = reactive({
     user_id: null,
 });
 
-
-
-const submitForm = () => {
-    router.post('/activity/store', data);
+function submitForm() {
+    data.post('/activity/store');
 }
+
+// const data = reactive({
+//     title: null,
+//     description: null,
+//     street: null,
+//     house_number: null,
+//     city: null,
+//     zip_code: null,
+//     country: null,
+//     category_id: null,
+//     image: null,
+//     date: null,
+//     duration: null,
+//     nb_attendees: null,
+//     user_id: null,
+// });
+
+
+
+// const submitForm = () => {
+//     router.post('/activity/store', data);
+// }
 
 const props = defineProps({
     categories: Array
@@ -63,7 +83,7 @@ const props = defineProps({
             </select>
 
             <label for="image">Image</label>
-            <input type="file" id="image" accept="image/png, image/jpeg" v-model="data.image" required>
+            <input type="file" @input="data.image = $event.target.files[0]" />
 
             <label for="date">Date de l'activité</label>
             <input type="date" id="date" v-model="data.date" required>
