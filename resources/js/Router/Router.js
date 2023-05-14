@@ -1,8 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Index from "../Pages/Index.vue";
 import Details from "../Pages/Details.vue";
+import LandingPage from "../Pages/LandingPage.vue";
+import AddActivityForm from "../Pages/AddActivityForm.vue";
 
 const routeInfos = [
+    {
+        path : "/",
+        name : "landingPage",
+        component : LandingPage
+    },
     {
         path : "/dashboard",
         name: "index",
@@ -13,6 +20,11 @@ const routeInfos = [
         name : "showActivity",
         component : Details
     },
+    {
+        path : "/activity/create",
+        name : "createActivity",
+        component : AddActivityForm
+    }
 ]
 
 const router = createRouter({

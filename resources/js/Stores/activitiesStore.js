@@ -6,9 +6,13 @@ export const useActivitiesStore = defineStore({
   id: 'activities',
   state: () => ({
     activities: [],
+    categories: [],
     currentActivity: null,
   }),
   getters: {
+    getCategories: (state) => {
+      return JSON.parse(JSON.stringify(state.categories));
+    },
     getActivityById: (state) => (id) => {
       // Récupération d'une activité par son id
       console.log(JSON.parse(JSON.stringify(state.activities)));
@@ -46,6 +50,14 @@ export const useActivitiesStore = defineStore({
         })
         .catch(error => {
             // Gérer les erreurs
+        });
+
+        const responseCategories = await axios.get('/api/getCategories')
+        .then(response => {
+          this.categories = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching categories:', error);
         });
       } catch (error) {
         console.error('Error fetching activities:', error);
