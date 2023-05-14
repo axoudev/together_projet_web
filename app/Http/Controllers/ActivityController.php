@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\Category;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
 
 class ActivityController extends Controller
@@ -42,6 +43,10 @@ class ActivityController extends Controller
 
     public function store(Request $request){
 
+        Storage::disk('public')->put('activities', $request->file('image'));
+
+        die();
+        $user = Auth::id();
         $client = new Client();
 
         $response = $client->get('https://geocode.maps.co/search?q={'.$request->street.' '.$request->house_number.' '.$request->zip_code.' '.$request->city.' '.$request->country.'}');
@@ -53,7 +58,7 @@ class ActivityController extends Controller
         $activity->title = $request->title;
         $activity->category_id = $request->category_id;
         $activity->description = $request->description;
-        $activity->user_id = 1;
+        $activity->user_id = $user;
         $activity->street = $request->street;
         $activity->house_number = $request->house_number;
         $activity->zip_code = $request->zip_code;
@@ -72,8 +77,6 @@ class ActivityController extends Controller
 
         // Sauvegarder les données dans la base de données
         $activity->save();
-        
-        dd($data);
     }
 
     public function activitiesWithDistances(Request $request)

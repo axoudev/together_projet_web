@@ -2,6 +2,7 @@
 import { router } from '@inertiajs/vue3'
 import { reactive } from 'vue'
 
+
 const data = reactive({
     title: null,
     description: null,
@@ -32,7 +33,7 @@ const props = defineProps({
     <div>
         {{ props.categories }}
         <h1>Ajouter une nouvelle activité</h1>
-        <form @submit.prevent="submitForm">
+        <form @submit.prevent="submitForm" enctype="multipart/form-data">
             @csrf
             <label for="title">Titre</label>
             <input type="text" id="title" v-model="data.title" required>
@@ -62,7 +63,7 @@ const props = defineProps({
             </select>
 
             <label for="image">Image</label>
-            <input type="text" id="image" v-model="data.image" required>
+            <input type="file" id="image" accept="image/png, image/jpeg" v-model="data.image" required>
 
             <label for="date">Date de l'activité</label>
             <input type="date" id="date" v-model="data.date" required>
