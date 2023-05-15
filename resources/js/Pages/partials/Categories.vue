@@ -16,7 +16,6 @@ categories.value = activitiesStore.getCategories;
                 <div class="rounded-full overflow-hidden w-16 h-16">
                     <img  :src=" category.image " alt="" class="h-full w-full">
                 </div>
-                
                 <span class="mt-2">{{category.nom}}</span>
             </article>
         </section>
