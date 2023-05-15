@@ -1,7 +1,19 @@
 <script setup>
+import { onBeforeMount, onMounted, ref } from 'vue';
+import { useActivitiesStore } from '../Stores/activitiesStore';
 import Categories from './partials/Categories.vue';
 import Activities from './partials/Activities.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
+
+
+const isLoaded = ref(false);
+
+
+onMounted(async () => {
+    const activitiesStore = useActivitiesStore();
+    await activitiesStore.fetchActivities();
+    isLoaded.value = true;
+});
 </script>
 <template>
     <AppLayout>
@@ -15,8 +27,9 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                 <i class="px-4 fa-solid fa-map text-white text-xl"></i>
             </div>
 
-            <Categories/>
-            <Activities title="Activités à proximité"/>
+            <Categories v-if="isLoaded" />
+            <Activities v-if="isLoaded" title="Activités à proximité" sort="distance"/>
+            <Activities v-if="isLoaded" title="Prochaines activités" sort="date"/>
             
             <!-- <Activities title="Prochaines activités"/> -->
         </div>

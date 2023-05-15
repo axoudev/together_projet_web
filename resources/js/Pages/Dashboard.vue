@@ -3,7 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Index from './Index.vue';
 import { useActivitiesStore } from '../Stores/activitiesStore';
 import { ref, onMounted } from 'vue';
-
+import Welcome from './Welcome.vue';
 
 // let isLoaded = ref(false);
 // console.log(isLoaded.value);
@@ -24,5 +24,5 @@ defineProps({
 </script>
 
 <template>
-    <Index/>
+    <Welcome />
 </template>

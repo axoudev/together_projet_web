@@ -11,7 +11,7 @@ const routeInfos = [
         component : LandingPage
     },
     {
-        path : "/dashboard",
+        path : "/index",
         name: "index",
         component : Index
     },
