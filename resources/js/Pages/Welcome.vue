@@ -1,11 +1,22 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
 
-defineProps({
+const router = useRouter()
+
+let props = defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
     laravelVersion: String,
     phpVersion: String,
+    route: String,
+});
+
+onMounted(() => {
+    if(props.route == 'index'){
+        router.push({name: 'index'});
+    }
 });
 </script>
 
