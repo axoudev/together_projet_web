@@ -57,7 +57,15 @@ const logout = () => {
                                     Dashboard
                                 </NavLink> -->
                                 <router-link :to="{name:'index'}">Index</router-link>
+                                
                             </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <!-- <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Dashboard
+                                </NavLink> -->
+                                
+                            </div>
+                            
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -146,7 +154,7 @@ const logout = () => {
 
                                         <DropdownLink :href="route('profile.show')">
                                             Profile
-                                        </DropdownLink>
+                                        </DropdownLink>      
 
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
                                             API Tokens

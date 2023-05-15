@@ -76,8 +76,6 @@ class ActivityController extends Controller
         $activity->lon = $data[0]->lon;
 
         $activity->save();
-
-        return view('index');
     }
 
     public function activitiesWithDistances(Request $request)

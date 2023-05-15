@@ -1,5 +1,5 @@
 <script setup>
-
+import { useRouter } from 'vue-router'
 import { router, useForm } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { useActivitiesStore } from '../Stores/activitiesStore'
@@ -7,6 +7,8 @@ import { useActivitiesStore } from '../Stores/activitiesStore'
 const activitiesStore = useActivitiesStore();
 const categories = activitiesStore.getCategories;
 console.log(categories);
+
+const vueRouter = useRouter();
 
 const data = useForm({
     title: null,
@@ -26,34 +28,10 @@ const data = useForm({
 
 function submitForm() {
     data.post('/activity/store');
-    router.push('/dashboard');
+    vueRouter.push({name: 'index'});
 }
 
-// const data = reactive({
-//     title: null,
-//     description: null,
-//     street: null,
-//     house_number: null,
-//     city: null,
-//     zip_code: null,
-//     country: null,
-//     category_id: null,
-//     image: null,
-//     date: null,
-//     duration: null,
-//     nb_attendees: null,
-//     user_id: null,
-// });
 
-
-
-// const submitForm = () => {
-//     router.post('/activity/store', data);
-// }
-
-// const props = defineProps({
-//     categories: Array
-// });
 </script>
 <template>
     <AppLayout>
