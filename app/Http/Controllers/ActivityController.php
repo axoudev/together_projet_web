@@ -46,6 +46,14 @@ class ActivityController extends Controller
 
     public function store(Request $request){
 
+        $hour = getDate(strtotime($request->hour));
+        $date = getDate(strtotime($request->date));
+        $date['hours'] = $hour['hours'];
+        $date['minutes'] = $hour['minutes'];
+        // dd($date);
+
+        $date_string = date('Y-m-d H:i:s', mktime($date['hours'], $date['minutes'], $date['seconds'], $date['mon'], $date['mday'], $date['year']));
+        
         $img = Storage::disk('public')->put('activities', $request->file('image'));
 
         $user = Auth::id();
@@ -66,7 +74,7 @@ class ActivityController extends Controller
         $activity->zip_code = $request->zip_code;
         $activity->city = $request->city;
         $activity->country = $request->country;
-        $activity->date = $request->date;
+        $activity->date = $date_string;
         $activity->image_path = $request->image;
         $activity->image = $img;
         $activity->duration = $request->duration;

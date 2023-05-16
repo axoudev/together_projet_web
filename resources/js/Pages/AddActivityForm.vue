@@ -23,6 +23,7 @@ const data = useForm({
     date: null,
     duration: null,
     nb_attendees: null,
+    hour: null,
     user_id: null,
 });
 
@@ -59,10 +60,10 @@ function submitForm() {
                     <input type="date" id="date" v-model="data.date" class="bg-blue-100 border-none rounded-2xl w-full" required>
                 </div>
                 
-                <!-- <div class="mb-8">
+                <div class="mb-8">
                     <label for="time" class="block font-bold">Heure de l'activité</label>
-                    <input type="time" id="time" v-model="data.date" class="bg-blue-100 border-none rounded-2xl w-full" required>
-                </div> -->
+                    <input type="time" id="time" v-model="data.hour" class="bg-blue-100 border-none rounded-2xl w-full" required>
+                </div>
 
                 <div class="mb-8">
                     <label for="duration" class="block font-bold">Durée de l'activité</label>

@@ -31,7 +31,7 @@ const props = defineProps({
 <template>
     <AppLayout>
         <header class="relative">
-            <img :src="activity.image_url" alt="">
+            <img :src="activity.image_url" alt="" class="w-full">
             <div class="absolute bottom-4 left-6">
                 <h1 class="font-bold text-white">{{activity.title}}</h1>
                 <div class="bg-white px-2 rounded-md text-myblue-light font-bold"><i class="fa-solid fa-location-dot mr-2"></i>{{activity.city}}, à {{Math.round(activity.distance)}} km</div>
